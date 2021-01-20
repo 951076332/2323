@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.msb</groupId>
+    <artifactId>msb-mall-pay</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0.0.RELEASE</version>
+    <modules>
+        <module>msb-mall-pay-service</module>
+        <module>msb-mall-pay-application</module>
+        <module>msb-mall-pay-common</module>
+        <module>msb-mall-pay-model</module>
+        <module>msb-mall-pay-mq</module>
+        <module>msb-mall-feign-api</module>
+    </modules>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.2.7.RELEASE</version>
+        <relativePath/>
+    </parent>
+
+    <name>msb-mall-pay</name>
+    <description>东宝支付中心</description>
+
+    <properties>
+        <rocket.version>2.1.1</rocket.version>
+        <java.version>1.8</java.version>
+        <spring-boot-admin.version>2.2.3</spring-boot-admin.version>
+        <spring-boot.version>2.2.7.RELEASE</spring-boot.version>
+        <guava.version>23.0</guava.version>
+        <freemarker.version>2.3.29</freemarker.version>
+        <swagger.version>2.9.2</swagger.version>
+        <gson.version>2.8.2</gson.version>
+        <hibernate.validator.version>6.0.7.Final</hibernate.validator.version>
+        <knife4j.version>2.0.3</knife4j.version>
+        <lombok.version>1.18.10</lombok.version>
+        <msb-auth-plugin-starter.version>1.0.1-SNAPSHOT</msb-auth-plugin-starter.version>
+        <alipay.version>4.10.0.ALL</alipay.version>
+        <commons-lang3.version>3.10</commons-lang3.version>
+        <commons-collections4.version>4.4</commons-collections4.version>
+        <junit.version>4.13</junit.version>
+        <spring-cloud.version>Hoxton.SR6</spring-cloud.version>
+        <weixin-java-mp.version>3.8.0</weixin-java-mp.version>
+        <jsoup.version>1.11.3</jsoup.version>
+        <dozer-spring-boot-starter.version>6.2.0</dozer-spring-boot-starter.version>
+        <weixin-popular.version>2.8.30</weixin-popular.version>
+        <hutool-all.version>4.5.7</hutool-all.version>
+        <powermock.version>1.6.3</powermock.version>
+        <msb-cube-common.version>1.0.1-SNAPSHOT</msb-cube-common.version>
+        <common-util.version>0.0.1</common-util.version>
+        <msb-product-dongbao-dto.version>0.0.1</msb-product-dongbao-dto.version>
+        <msb-product-dongbao-model.version>0.0.1</msb-product-dongbao-model.version>
+        <common-base.version>0.0.5</common-base.version>
+        <msb-product-dongbao-service.version>0.0.1</msb-product-dongbao-service.version>
+        <msb-product-dongbao-comment.version>0.0.1</msb-product-dongbao-comment.version>
+        <redisson.version>3.8.2</redisson.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson</artifactId>
+                <version>${redisson.version}</version>
+            </dependency>
+
+            <!-- RMQ 依赖 -->
+            <dependency>
+                <groupId>org.apache.rocketmq</groupId>
+                <artifactId>rocketmq-spring-boot-starter</artifactId>
+                <version>${rocket.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.msb</groupId>
+                <artifactId>msb-trading-dto</artifactId>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.msb</groupId>
+                        <artifactId>msb-cube-common</artifactId>
+                    </exclusion>
+                </exclusions>
+                <version>1.0.3.RELEASE</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.msb</groupId>
+                <artifactId>msb-mall-message</artifactId>
+                <version>1.0.0.RELEASE</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.msb</groupId>
+                <artifactId>msb-mall-pay-dto</artifactId>
+                <version>1.0.0.RELEASE</version>
+            </dependency>
+
+            <!-- 微信公众号和支付  -->
+            <dependency>
+                <groupId>com.github.liyiorg</groupId>
+                <artifactId>weixin-popular</artifactId>
+                <version>${weixin-popular.version}</version>
+            </dependency>
+
+            <!--Hutool Java工具包-->
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool-all.version}</version>
+            </dependency>
+
+
+            <!--     <dependency>
+                     <groupId>org.springframework.boot</groupId>
+                     <artifactId>spring-boot-starter-actuator</artifactId>
+                 </dependency>-->
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-redis</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-mail</artifactId>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-validation</artifactId>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-logging</artifactId>
+            </dependency>
+
+            <!-- freemarker模板 -->
+            <dependency>
+                <groupId>org.freemarker</groupId>
+                <artifactId>freemarker</artifactId>
+                <version>${freemarker.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.code.gson</groupId>
+                <artifactId>gson</artifactId>
+                <version>${gson.version}</version>
+            </dependency>
+
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-devtools</artifactId>
+                <scope>runtime</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
+
+            <!--  单元测试  START -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-test</artifactId>
+                <scope>test</scope>
+                <version>${spring-boot.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.junit.vintage</groupId>
+                        <artifactId>junit-vintage-engine</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>org.powermock</groupId>
+                <artifactId>powermock-api-mockito</artifactId>
+                <version>${powermock.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.powermock</groupId>
+                <artifactId>powermock-module-junit4</artifactId>
+                <version>${powermock.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <!--  单元测试  END -->
+
+            <!-- swagger 依赖  START -->
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger-ui</artifactId>
+                <version>${swagger.version}</version>
+                <optional>true</optional>
+            </dependency>
+            <!-- swagger 依赖  END -->
+
+            <dependency>
+                <groupId>org.hibernate.validator</groupId>
+                <artifactId>hibernate-validator</artifactId>
+                <version>${hibernate.validator.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>de.codecentric</groupId>
+                <artifactId>spring-boot-admin-dependencies</artifactId>
+                <version>${spring-boot-admin.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-dependencies</artifactId>
+                <version>${knife4j.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/com.alipay.sdk/alipay-sdk-java -->
+            <dependency>
+                <groupId>com.alipay.sdk</groupId>
+                <artifactId>alipay-sdk-java</artifactId>
+                <version>${alipay.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang3.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-collections4</artifactId>
+                <version>${commons-collections4.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-pool2</artifactId>
+                <version>${commons-pool2.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+
+
+            <!--  <dependency>
+                  <groupId>org.springframework.session</groupId>
+                  <artifactId>spring-session-data-redis</artifactId>
+              </dependency>-->
+
+
+            <!-- SpringCloud -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+
+            <!-- 微信开发 begin-->
+            <dependency>
+                <groupId>com.github.binarywang</groupId>
+                <artifactId>weixin-java-mp</artifactId>
+                <version>${weixin-java-mp.version}</version>
+            </dependency>
+
+            <!-- 微信开发 end-->
+
+            <!-- jsoup依赖 begin  -->
+            <dependency>
+                <groupId>org.jsoup</groupId>
+                <artifactId>jsoup</artifactId>
+                <version>${jsoup.version}</version>
+            </dependency>
+            <!-- jsoup依赖 end  -->
+
+            <dependency>
+                <groupId>io.github.openfeign.form</groupId>
+                <artifactId>feign-form</artifactId>
+                <version>3.5.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.github.openfeign.form</groupId>
+                <artifactId>feign-form-spring</artifactId>
+                <version>3.5.0</version>
+            </dependency>
+            <dependency>
+                <groupId>com.msb.video</groupId>
+                <artifactId>msb-video-api</artifactId>
+                <version>0.0.1</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.dozermapper</groupId>
+                <artifactId>dozer-spring-boot-starter</artifactId>
+                <version>${dozer-spring-boot-starter.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.msb</groupId>
+                <artifactId>common-util</artifactId>
+                <version>${common-util.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.msb</groupId>
+                <artifactId>msb-product-dongbao-dto</artifactId>
+                <version>${msb-product-dongbao-dto.version}</version>
+            </dependency>
+
+
+            <dependency>
+                <groupId>com.msb</groupId>
+                <artifactId>msb-product-dongbao-service</artifactId>
+                <version>${msb-product-dongbao-service.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.msb</groupId>
+                <artifactId>msb-product-dongbao-comment</artifactId>
+                <version>${msb-product-dongbao-comment.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.msb</groupId>
+                <artifactId>common-base</artifactId>
+                <version>${common-base.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.msb</groupId>
+                <artifactId>msb-product-dongbao-model</artifactId>
+                <version>${msb-product-dongbao-model.version}</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.msb</groupId>
+            <artifactId>msb-cube-common</artifactId>
+            <version>${msb-cube-common.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>3.4.0.905</version>
+            </plugin>
+        </plugins>
+    </build>
+
+    <!-- maven私服配置 -->
+    <repositories>
+        <repository>
+            <id>msb-snapshots</id>
+            <name>msb-snapshots</name>
+            <url>http://121.89.218.68:8082/repository/maven-snapshots/</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </releases>
+        </repository>
+
+        <repository>
+            <id>maven-public</id>
+            <name>maven-public</name>
+            <url>http://121.89.218.68:8082/repository/maven-public/</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </releases>
+        </repository>
+    </repositories>
+
+    <distributionManagement>
+        <repository>
+            <id>msb-nexus</id>
+            <name>maven-nexus</name>
+            <url>http://121.89.218.68:8082/repository/maven-releases/</url>
+        </repository>
+
+        <snapshotRepository>
+            <id>msb-snapshots</id>
+            <name>maven-snapshots</name>
+            <url>http://121.89.218.68:8082/repository/maven-snapshots/</url>
+            <uniqueVersion>false</uniqueVersion>
+        </snapshotRepository>
+    </distributionManagement>
+
+
+</project>

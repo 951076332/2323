@@ -1,0 +1,76 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: msb-mall-pay
+  servlet:
+    multipart:
+      max-file-size: -1
+      max-request-size: -1
+
+  ## cassandra数据库配置
+  data:
+    cassandra:
+      keyspace-name: msb_seckill_opt
+      #entity-base-packages:
+      contact-points: 172.20.0.163
+      port: 9042
+      #cluster-name: Test Cluster
+
+# JWT 配置
+msb:
+  jwt:
+    # JWT存储的请求头
+    tokenHeader: Authorization
+    refreshTokenHeader: R-Authorization
+    # JWT加解密使用的密钥
+    secret: msb@Login(Auth}*^31)&czxy%
+    # 公钥串
+    publicKeyStr: MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDRZLB1PfJWBtrHrZyGCHR6hrZIguxLafZKkYm3Lz3rBl5QgsVI4ObHcXy/hrPq6HoXtksuPbXClnwTYicfMW1ZRAwoZeoqDxVza+Jm98rnhHaCklOp4Ph/3/wIppt7EQCGx7SuDEY9q3j9pM57TFT6WgqtjNghHN08ERP/M5nlOwIDAQAB
+    # JWT的超期限时间(60*2)
+    expiration: 604800
+    # 刷新token超期限时间(60*60*24*7)
+    refreshExpiration: 604800
+    # JWT负载中拿到开头
+    tokenHead: 'Bearer '
+    # 是否为接入客户端
+    client: true
+    # 是否开启自解析token，建议在生产环境关闭
+    selfDecryptToken: true
+
+idgenerator:
+  url: 127.0.0.1:8085/api/snowflake/msb-ks
+
+wxPay:
+  mchKey: 2F3E3D65DDB1A69997ECA30EC3490620
+  appId: wx1f321fe54a3506ff
+  mchId: 1530576621
+
+# XSS过滤配置
+xss:
+  white:
+    # 多个用逗号分隔，支持通配符
+    urls: /wx/**,/favicon.ico,/img/**,/js/**,/css/**,/swagger-resources/**,/webjars/**,/v2/**,/swagger-ui.html/**,/doc.html
+  # 是否过滤富文本框字段值
+  filterRichText: 'true'
+
+
+#订单超时时间 单位分钟
+order:
+  timeOutMinute: 5
+
+server:
+  servlet:
+    context-path: /pay-center
+
+feign:
+  hystrix:
+    enabled: false
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: basic
+  httpclient:
+    enabled: true

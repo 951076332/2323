@@ -1,0 +1,106 @@
+profiles:
+  active: dev
+server:
+  port: 9998
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://172.20.0.237:8762/eureka/
+  instance:
+    prefer-ip-address: true
+
+rocketmq:
+  name-server: 172.20.0.160:9876
+  producer:
+    group: msb-db-pay-center
+    sendMessageTimeout: 300000
+
+spring:
+  data:
+    # mongo config
+    mongodb:
+      # cluster config
+      uri: mongodb://msb-seckill-prod:msb-seckill-prod@172.20.0.216:27017/msb-seckill-prod
+      transactionEnabled: true
+
+    cassandra:
+      keyspace-name: msb_mall_pay
+      #entity-base-packages:
+      contact-points: 172.20.0.163
+      port: 9042
+      #cluster-name: Test Cluster
+      # 这个东西不靠谱,如果表不存在则会自动创建;如果实体类不在同一个项目下,需要在启动类上加@EntityScan,并配置basePackages使其包含实体类的包
+      schema-action: CREATE_IF_NOT_EXISTS
+
+  redis:
+    host: 172.20.0.217
+    port: 6379
+    password: test123
+
+
+# JWT 配置
+msb:
+  jwt:
+    # JWT存储的请求头
+    tokenHeader: Authorization
+    refreshTokenHeader: R-Authorization
+    # JWT加解密使用的密钥
+    secret: msb@Login(Auth}*^31)&czxy%
+    # 公钥串
+    publicKeyStr: MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDRZLB1PfJWBtrHrZyGCHR6hrZIguxLafZKkYm3Lz3rBl5QgsVI4ObHcXy/hrPq6HoXtksuPbXClnwTYicfMW1ZRAwoZeoqDxVza+Jm98rnhHaCklOp4Ph/3/wIppt7EQCGx7SuDEY9q3j9pM57TFT6WgqtjNghHN08ERP/M5nlOwIDAQAB
+    # JWT的超期限时间(60*2)
+    expiration: 604800
+    # 刷新token超期限时间(60*60*24*7)
+    refreshExpiration: 604800
+    # JWT负载中拿到开头
+    tokenHead: 'Bearer '
+    # 是否为接入客户端
+    client: true
+    # 是否开启自解析token，建议在生产环境关闭
+    selfDecryptToken: true
+
+
+knife4j:
+  enable: true
+  markdowns: classpath:markdown2x/*
+  basic:
+    enable: false
+    username: zhangsan
+    password: 123456
+
+
+# 正式环境开发微信公众号配置
+wx:
+  mp:
+    configs:
+      - appId: wx1f321fe54a3506ff
+        secret: 040cc59f66bf2d3d3df6c547972feb35
+        token: piziniao2019
+        aesKey: Kcbv298MCrezBaMBRTHWX3TmDALIovgUwK5hLiout5r
+
+logging:
+  config: classpath:logback-config.xml
+  level:
+    root: INFO
+
+# 阿里支付配置
+alipay:
+  # 应用ID,您的APPID，收款账号即是您的APPID对应支付宝账号
+  app_id: 2021000116683310
+  # 支付宝公钥
+  alipay_public_key: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAgHC6w5CLQytTLKQvGxVKR6B8ApVfyms0Ve0DJHV4YzXY7loHkuHAb4Mr0GBqpjJ897fYr/bnKOyyBnOAzbUW2cZG9aCQZ0LOxomjzKW3Mnw55aF/RE2w16xvVXNFZZdT4uk17BvNJ6JV57H1pakFkJP7I7WYgqrn+I3aunEdOJRRAPGacz00b6YmvX7IoMzfo3FMzuvAhOCQyR/FxI5RGCxLhX0jr8VX5hB8/fpMIPYfDCiVwqEqNWtT65VLQn+pb88orJxXAAbyYsSuUbP+RnqdlWiZ0ElcyqCdghYenPAWYY658APPBWBWjH7+3S21CInxVMVXHOS+A+L64H/gHQIDAQAB
+  # 商户私钥，您的PKCS8格式RSA2私钥
+  merchant_private_key: MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCPJV5zLX8l8fhRI/qqOXjmmPx/vr+Wws4ytvm8JLJQb5ST9lwc9SpGfg7+sG7v3Sczhinbei/6trIfFxxZ5NtHIDpWUEDCWmvM3F3DB2JPhgol+mMXeNKpdyhGTDV12kNqnhY9is/y4Rra5GmGDkqS2b8bDEsqbJn61NWd/HS8Nir3SWlxzP5J9h1knXXB4AUaoLbOSEe+S/E1bCsvJlpDwxsFQx0QWstmhsALwXQizltohUamFs8vn8y1n86pabuRYjZWy9bmBW0fRhhMXrYtIF993wnpNI2Qw4ECowV8BcMlJjbHfYoeB97Vjv5qUat8x2zWybAgujSLYN+XIRUVAgMBAAECggEAKOEnJAVuNkvv+lwoDczz9gbitSioVkmz0U/n6g8gzU/QQqEslSh+tjrx1VJVnDKwK0q5UXCHmzXpkG9tLU7qQFm3z0aD9/0SpCKatEO7k7JX25iyC9X5c2QQIGNLMSjv79bNyy2FTXtzy+dHK32RVnbQ2Myd+rOhFb0KdF/Qhp8T3cLq89bS01tKBD5OVHQvKZF6mHovqiy9s49ovoXdVZiVR7C4m8jDNtpBs+5u79U/3q6dm7/2ohtwRzBFIwvwDrmR7f79wPn2qfkmlUfyWgsXSoXMYVe6IUiROr+DobYFUGH+Hp7lQzPEw4l+ofQig12hoqoMCOXF5bdJ3PfgUQKBgQDPYrcSaT5C2FXEmdR5Z7iehpgrtUrAqRKWRngXIEgEo3+h9mm5W6CG4yPQdUEp8fNs1g8SDrtKXdg22VeM0xB/J1DZCMFQy7pMlp1FjiBkYRNCfASEos3Hdr0QxraJjpLGmXqGZPQAPIRrFqPVlC3vIHhXcZxZgJhgggdWCpeTFwKBgQCws5w7sbRWhitaRphdpeV6MjLVetxCr/IRAzyRfM4WOLiguIpFY2fwXt+CPgdx/ZZFkOVSmJgplddPWtMq+g+o7XcQ7pweCjY7WAXFsDPR2he1lBXYERwnM94Gs/PyeQ2QEovr512NIo13CbwFt/SDMVuLWfci08GM+M9y1vokswKBgQCRRlCCWDEiOFOUnkIGLc9ZVWXBsITGA2oe1QyI/rcUcMgW1/vlubbw5qqO+6SDUpc4VZdHCgTPKoAspAG9h5kVyZ/L+WMaSyydPCC9ubsdNhd8yk2L8FQAd0AoQVtbbwGIl7kJ7iwzAjGsprZsBhpLWc6TSuXAmOGlMVEcR904TwKBgGHFH78P1n7Bgh9TTF8UueJhACuK7XCgtcmgBtVhPw6gl9emBCvcktg3RmhkNe5mp80aHSkUca0g0Z+A27K95ghMTEM8I3mjoNo5HAiENEf66n93zpZc8TznwAPpciNJw61h9bWzsNm0sp2Y70YiwNIOb16tisbkcAW2beJW/NVtAoGAQnYYILI0qk1QeaU2ixa4wgSMBWY+gSzO5KY5KV/NBy7ouKz4Qst3NxIEcqDc6HzVukL5J4/wjiwHSuF3kxxkHPaRyw1PEBhsFR2W4/fQmKzbOMyoIvPyt+bBSS8ffNtnBFA9ogaCsEUDCpby4bek8ncOnGtqQ6I/f/q3EKc2wIM=
+  # 服务器异步通知页面路径  需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
+  notify_url: http://liuzilele.shenzhuo.vip:11320/pay-center/pay/aliPay/notify
+  # 页面跳转同步通知页面路径 需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
+  return_url: http://jiayang.shenzhuo.vip:11314/#/payDone
+  # 签名方式
+  sign_type: RSA2
+  # 字符编码格式
+  charset: utf-8
+  # 支付宝网关
+  gateway_url: https://openapi.alipaydev.com/gateway.do
+
+
